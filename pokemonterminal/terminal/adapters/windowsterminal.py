@@ -7,7 +7,7 @@ from . import TerminalProvider as _TProv
 class WindowsTerminalProvider(_TProv):
 
     def set_background_image(path: str):
-        profiles_path = os.environ['LOCALAPPDATA'] + '\\Packages\\Microsoft.WindowsTerminal_8wekyb3d8bbwe\\LocalState\\settings.json'
+        profiles_path = "/mnt/c/Users/adm/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
         with open(profiles_path, 'r+', encoding='utf8') as json_file:
             # read profiles.json
             # remove comments from json to load
@@ -26,7 +26,8 @@ class WindowsTerminalProvider(_TProv):
             if (path is None):
                 del profile['backgroundImage']
             else:
-                profile['backgroundImage'] = path
+                wsl_path = "\\\\wsl$\\Ubuntu"
+                profile['backgroundImage'] = wsl_path + path
 
             # write to file
             # it lost orignal indent, comment, ...
